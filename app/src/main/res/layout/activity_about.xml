@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.9"
-        android:background="#defcf9"
+        android:background="#2dedfa"
         android:orientation="horizontal">
         <View
             android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="86"
-                android:text="Feautures: Contest Calendar,Algorithmic Tutorials and Keep a track of competetive programming as well as compete "
+                android:text="Features: Contest Calendar,Algorithmic Tutorials and Keep a track of competetive programming as well as compete "
                 android:gravity="center_horizontal|center_vertical"
                 android:textStyle="normal|bold"
                 android:textSize="20sp"

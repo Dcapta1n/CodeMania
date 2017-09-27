@@ -24,6 +24,8 @@ import java.util.concurrent.TimeUnit;
 
 public class CalAdapter extends ArrayAdapter<CalData> {
 
+    String requiredArr[] = {"codeforces","codechef","hackerrank","hackerearth","topcoder","csacademy"};
+
     public CalAdapter(Context context, List<CalData> caldatas) {
         super(context, 0,caldatas);
 
@@ -49,11 +51,8 @@ public class CalAdapter extends ArrayAdapter<CalData> {
         ImageView imageView = (ImageView) list.findViewById(R.id.img);
         try {
             d1=formatDate(data.date());
-
-
-           SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
             formattedDate= dateFormat.format(d1);
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -65,16 +64,42 @@ public class CalAdapter extends ArrayAdapter<CalData> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String url = data.getUrl();
-
-        //TODO
-        //SET DEFAULT IMAGE
-        imageView.setImageResource(R.drawable.codeforces);
 
 
+
+        int checksiteans = CheckSite(data.getUrl());
+        if(checksiteans != -1)
+        {
+            Log.i("name:",data.getUrl());
+            if(checksiteans==0)
+                imageView.setImageResource(R.drawable.codeforces);
+            else if(checksiteans==1)
+                imageView.setImageResource(R.drawable.codechef);
+            else if(checksiteans==2)
+                imageView.setImageResource(R.drawable.hackerrank);
+            else if(checksiteans==3)
+                imageView.setImageResource(R.drawable.hackerearth);
+            else if(checksiteans==4)
+                imageView.setImageResource(R.drawable.topcoder);
+            else if(checksiteans==5)
+                imageView.setImageResource(R.drawable.csacademy);
+
+        }
 
         return list;
     }
+
+    public int CheckSite( String urlname) {
+        // Works, but is not the best.
+        //return haystack.toLowerCase().indexOf( needle.toLowerCase() ) > -1
+        for(int i = 0; i < requiredArr.length;i++)
+        {
+            if(urlname.toLowerCase().contains(requiredArr[i].toLowerCase()))
+                return i;
+        }
+        return -1;
+    }
+
     Date formatDate(String date) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date date1;

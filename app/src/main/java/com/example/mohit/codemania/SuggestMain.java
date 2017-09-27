@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,15 +39,16 @@ import java.util.ArrayList;
 
 
 public class SuggestMain extends AppCompatActivity  {
-    //TODO
-    //Find new problem suggestion API
+    //TODO:Find new problem suggestion API
     String urlx = "http://codeforces.com/api/problemset.problems?tags=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.suggest_main);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        String url="http://codeforces.com/api/problemset.problems?tags=implementation";
+        Volley(url);
         Spinner spinner = (Spinner) findViewById(R.id.spinner1);
         ArrayAdapter<CharSequence> adapter =ArrayAdapter.createFromResource(this,R.array.problem_tags,android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
@@ -55,14 +57,18 @@ public class SuggestMain extends AppCompatActivity  {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String tag;
                 ArrayList<String> ss= new ArrayList<>();
-                ss.add("select to continue");
-
-                ss.add("dp");
+                ss.add("brute+force");
                 ss.add("implementation");
+                ss.add("sortings");
+                ss.add("math");
+                ss.add("number+theory");
+                ss.add("data+structures");
+                ss.add("dp");
                 ss.add("binary+search");
                 ss.add("divide+and+conquer");
                 ss.add("greedy");
-                ss.add("math");
+                ss.add("constructive+algorithms");
+
                 if(position>0) {
                     tag = ss.get(position);
                     String url2 = urlx + tag;
@@ -114,6 +120,11 @@ public class SuggestMain extends AppCompatActivity  {
         super.onBackPressed();
         startActivity(new Intent(SuggestMain.this, home.class));
         finish();
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        onBackPressed();
+        return true;
     }
 
     public void updateUi(JSONObject data) throws JSONException {
